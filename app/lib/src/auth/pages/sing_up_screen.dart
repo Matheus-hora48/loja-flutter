@@ -3,9 +3,20 @@ import 'package:app/src/config/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SingUpScreen extends StatelessWidget {
-  const SingUpScreen({Key? key}) : super(key: key);
+  SingUpScreen({Key? key}) : super(key: key);
+
+  final cpfFormatter = MaskTextInputFormatter(
+    mask: '###.###.###-##',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
+
+  final phoneFormatter = MaskTextInputFormatter(
+    mask: '(##) # #### ####',
+    filter: {'#': RegExp(r'[0-9]')},
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +67,15 @@ class SingUpScreen extends StatelessWidget {
                           icon: Icons.person,
                           label: 'Name',
                         ),
-                        const CustomTextField(
+                        CustomTextField(
                           icon: Icons.phone,
                           label: 'Celular',
+                          inputFormatters: [phoneFormatter],
                         ),
-                        const CustomTextField(
+                        CustomTextField(
                           icon: Icons.file_copy,
                           label: 'CPF',
+                          inputFormatters: [cpfFormatter],
                         ),
                         SizedBox(
                             height: 50,
@@ -82,13 +95,19 @@ class SingUpScreen extends StatelessWidget {
                       ]),
                 )
               ]),
-              SafeArea(
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      
-                    )),
+              Positioned(
+                top: 10,
+                left: 10,
+                child: SafeArea(
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                      )),
+                ),
               )
             ],
           ),
