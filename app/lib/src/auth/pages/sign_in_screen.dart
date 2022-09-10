@@ -17,7 +17,8 @@ class SignInScreen extends StatelessWidget {
       backgroundColor: CustomColors.customSwatchColor,
       body: SingleChildScrollView(
         child: SizedBox(
-          height: size.width,
+          height: size.height,
+          width: size.width,
           child: Column(
             children: [
               Expanded(
