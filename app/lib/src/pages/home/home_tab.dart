@@ -1,27 +1,20 @@
+import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/home/components/category_tile.dart';
+import 'package:app/src/pages/home/components/item_title.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class HomeTab extends StatefulWidget {
-  HomeTab({Key? key}) : super(key: key);
+  const HomeTab({Key? key}) : super(key: key);
 
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<String> categories = [
-    'Frutas',
-    'Grãos',
-    'Legumes',
-    'Verduras',
-    'Temperos',
-    'Cereais'
-  ];
-
   String selectedCatrgory = 'Frutas';
 
   @override
@@ -91,24 +84,43 @@ class _HomeTabState extends State<HomeTab> {
           ),
           Container(
             height: 40,
-            padding: EdgeInsets.only(left: 25, right: 25),
+            padding: const EdgeInsets.only(left: 25, right: 25),
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index){
+              itemBuilder: (_, index) {
                 return CategoryTile(
                   onPressed: () {
                     setState(() {
-                      selectedCatrgory = categories[index];
+                      selectedCatrgory = app_data.categories[index];
                     });
                   },
-                  category: categories[index],
-                  isSelected: categories[index] == selectedCatrgory,
+                  category: app_data.categories[index],
+                  isSelected: app_data.categories[index] == selectedCatrgory,
                 );
               },
-              separatorBuilder: (_, index) => SizedBox(width: 10,),
-              itemCount: categories.length,
+              separatorBuilder: (_, index) => const SizedBox(
+                width: 10,
+              ),
+              itemCount: app_data.categories.length,
             ),
           ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 9 / 11.5),
+              itemCount: app_data.items.length,
+              itemBuilder: (_, index) {
+                return ItemTitle(
+                  item: app_data.items[index],
+                );
+              },
+            ),
+          )
         ],
       ),
     );
