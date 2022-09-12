@@ -1,5 +1,5 @@
-import 'package:app/src/auth/components/costom_text_field.dart';
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/pages/auth/components/costom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';

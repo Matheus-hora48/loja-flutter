@@ -1,5 +1,5 @@
 import 'package:app/src/config/custom_colors.dart';
-import 'package:app/src/home/home_tab.dart';
+import 'package:app/src/pages/home/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
