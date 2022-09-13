@@ -5,11 +5,18 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class QuantityWidget extends StatelessWidget {
-  const QuantityWidget({Key? key, required this.value, required this.suffixText, required this.result}) : super(key: key);
+  const QuantityWidget(
+      {Key? key,
+      required this.value,
+      required this.suffixText,
+      required this.result,
+      this.isRemovable = false})
+      : super(key: key);
 
   final int value;
   final String suffixText;
   final Function(int quantity) result;
+  final bool isRemovable;
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +32,17 @@ class QuantityWidget extends StatelessWidget {
               blurRadius: 2,
             ),
           ]),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
         _QuantityButton(
-          color: Colors.grey,
-          icon: Icons.remove,
+          color: !isRemovable || value > 1 ? Colors.grey : Colors.redAccent,
+          icon: !isRemovable || value > 1 ? Icons.remove : Icons.delete_forever,
           onPressed: () {
-            if(value == 1) return;
+            if (value == 1 && !isRemovable) return;
             int resultCount = value - 1;
             result(resultCount);
           },
         ),
-         Padding(
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
           child: Text(
             '$value$suffixText',

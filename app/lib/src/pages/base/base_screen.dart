@@ -1,6 +1,7 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/cart/cart_tab.dart';
 import 'package:app/src/pages/home/home_tab.dart';
+import 'package:app/src/pages/profile/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -24,13 +25,11 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           const HomeTab(),
-          CartTab(),
+          const CartTab(),
           Container(
             color: Colors.yellow,
           ),
-          Container(
-            color: Colors.green,
-          ),
+          const ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

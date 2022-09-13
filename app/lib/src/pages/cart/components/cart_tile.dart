@@ -6,35 +6,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class CartTile extends StatelessWidget {
-  CartTile({Key? key, required this.cartItem}) : super(key: key);
+class CartTile extends StatefulWidget {
+  const CartTile({Key? key, required this.cartItem, required this.remove})
+      : super(key: key);
 
   final CartItemModel cartItem;
+  final Function(CartItemModel) remove;
+
+  @override
+  State<CartTile> createState() => _CartTileState();
+}
+
+class _CartTileState extends State<CartTile> {
   final UtilsServices utilsServices = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: ListTile(
         leading: Image.asset(
-          cartItem.item.imgUrl,
+          widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
         ),
         title: Text(
-          cartItem.item.itemName,
+          widget.cartItem.item.itemName,
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Text(
-          utilsServices.priceToCurrency(cartItem.item.price),
+          utilsServices.priceToCurrency(widget.cartItem.totalPrice()),
           style: TextStyle(
               color: CustomColors.customSwatchColor,
               fontWeight: FontWeight.bold),
         ),
         trailing: QuantityWidget(
-          value: cartItem.quantity,
-          suffixText: cartItem.item.unit,
-          result: ((quantity) {}),
+          value: widget.cartItem.quantity,
+          suffixText: widget.cartItem.item.unit,
+          result: ((quantity) {
+            setState(() {
+              widget.cartItem.quantity = quantity;
+
+              if (quantity == 0) {
+                widget.remove(widget.cartItem);
+              }
+            });
+          }),
+          isRemovable: true,
         ),
       ),
     );
