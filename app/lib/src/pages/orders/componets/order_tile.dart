@@ -1,6 +1,7 @@
 import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/models/order_model.dart';
 import 'package:app/src/pages/orders/componets/order_status.dart';
+import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -98,13 +99,23 @@ class OrderTile extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)
-                      )
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return PaymentDialog();
+                          });
+                    },
+                    icon: Image.asset(
+                      'assets/app_images/pix.png',
+                      height: 18,
                     ),
-                    onPressed: () {},
-                    icon: Image.asset('assets/app_images/pix.png', height: 18,),
-                    label: const Text('Ver QR Code Pix', style: TextStyle(color: Colors.white),),
+                    label: const Text(
+                      'Ver QR Code Pix',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
