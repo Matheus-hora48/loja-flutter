@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/pages/widgets/app_name_widget.dart';
 import 'package:app/src/pages/widgets/costom_text_field.dart';
 import 'package:app/src/pages/auth/pages/sing_up_screen.dart';
 import 'package:app/src/pages/base/base_screen.dart';
@@ -26,21 +27,10 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text.rich(TextSpan(
-                        style: const TextStyle(fontSize: 40),
-                        children: [
-                          const TextSpan(
-                              text: 'Zap ',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          TextSpan(
-                              text: 'Frutas',
-                              style: TextStyle(
-                                color: CustomColors.customContrastColor,
-                              ))
-                        ])),
+                    const AppNameWidget(
+                      greenTileColor: Colors.white,
+                      textSize: 40,
+                    ),
                     SizedBox(
                       height: 30,
                       child: DefaultTextStyle(

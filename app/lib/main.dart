@@ -1,5 +1,6 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/auth/pages/sign_in_screen.dart';
+import 'package:app/src/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +18,6 @@ class MyApp extends StatelessWidget {
             primarySwatch: CustomColors.customSwatchColor,
             scaffoldBackgroundColor: Colors.white.withAlpha(200)),
         debugShowCheckedModeBanner: false,
-        home: const SignInScreen());
+        home: const SplashScreen());
   }
 }

@@ -4,6 +4,7 @@ import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/home/components/category_tile.dart';
 import 'package:app/src/pages/home/components/item_title.dart';
+import 'package:app/src/pages/widgets/app_name_widget.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -35,19 +36,7 @@ class _HomeTabState extends State<HomeTab> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: GestureDetector(
-          onTap: () {
-            
-          },
-          child: Text.rich(TextSpan(style: TextStyle(fontSize: 30), children: [
-            TextSpan(
-                text: 'Zap ',
-                style: TextStyle(color: CustomColors.customSwatchColor)),
-            TextSpan(
-                text: 'Frutas',
-                style: TextStyle(color: CustomColors.customContrastColor)),
-          ])),
-        ),
+        title: const AppNameWidget(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 10, right: 15),
@@ -150,3 +139,5 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 }
+
+
