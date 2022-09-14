@@ -1,25 +1,92 @@
-import 'package:flutter/cupertino.dart';
+import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/models/order_model.dart';
+import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class PaymentDialog extends StatelessWidget {
-  const PaymentDialog({Key? key}) : super(key: key);
+  PaymentDialog({Key? key, required this.order}) : super(key: key);
+  final OrderModel order;
+  final UtilsServices utilsServices = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'Pagamento com pix',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        )
-      ],
-    ));
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      'Pagamento com pix',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  QrImage(
+                    data: "1234567890",
+                    version: QrVersions.auto,
+                    size: 200.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      'Vencimento: ${utilsServices.formatDateTime(order.overdueDateTime)}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Total: ${utilsServices.priceToCurrency(order.total)}',
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(
+                            width: 2, color: CustomColors.customSwatchColor),
+                      )),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.copy,
+                        size: 15,
+                      ),
+                      label: const Text(
+                        'Copiar código Pix',
+                        style: TextStyle(fontSize: 13),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+                top: 0,
+                right: 0,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(Icons.close),
+                ))
+          ],
+        ));
   }
 }

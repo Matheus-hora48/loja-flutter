@@ -105,7 +105,9 @@ class OrderTile extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (_) {
-                            return PaymentDialog();
+                            return PaymentDialog(
+                              order: order,
+                            );
                           });
                     },
                     icon: Image.asset(

@@ -2,6 +2,7 @@ import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/pages/cart/components/cart_tile.dart';
+import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -93,6 +94,15 @@ class _CartTabState extends State<CartTab> {
                   child: ElevatedButton(
                     onPressed: () async {
                       bool? result = await showOrderConfirmation();
+                      if (result ?? false) {
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              return PaymentDialog(
+                                order: app_data.orders.first,
+                              );
+                            });
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
