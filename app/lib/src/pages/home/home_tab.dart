@@ -4,8 +4,10 @@ import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/home/components/category_tile.dart';
 import 'package:app/src/pages/home/components/item_title.dart';
+import 'package:app/src/services/utils_services.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -24,6 +26,8 @@ class _HomeTabState extends State<HomeTab> {
     runAddToCardAnimation(gkImage);
   }
 
+  final UtilsServices utilsServices = UtilsServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,36 +35,38 @@ class _HomeTabState extends State<HomeTab> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text.rich(TextSpan(style: TextStyle(fontSize: 30), children: [
-          TextSpan(
-              text: 'Zap ',
-              style: TextStyle(color: CustomColors.customSwatchColor)),
-          TextSpan(
-              text: 'Frutas',
-              style: TextStyle(color: CustomColors.customContrastColor)),
-        ])),
+        title: GestureDetector(
+          onTap: () {
+            
+          },
+          child: Text.rich(TextSpan(style: TextStyle(fontSize: 30), children: [
+            TextSpan(
+                text: 'Zap ',
+                style: TextStyle(color: CustomColors.customSwatchColor)),
+            TextSpan(
+                text: 'Frutas',
+                style: TextStyle(color: CustomColors.customContrastColor)),
+          ])),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 10, right: 15),
-            child: GestureDetector(
-              onTap: () {},
-              child: Badge(
-                  badgeColor: CustomColors.customContrastColor,
-                  badgeContent: const Text(
-                    '2',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
+            child: Badge(
+                badgeColor: CustomColors.customContrastColor,
+                badgeContent: const Text(
+                  '2',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
                   ),
-                  child: AddToCartIcon(
-                    icon: Icon(
-                      Icons.shopping_cart,
-                      color: CustomColors.customSwatchColor,
-                    ),
-                    key: globalKeyCartItems,
-                  )),
-            ),
+                ),
+                child: AddToCartIcon(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: CustomColors.customSwatchColor,
+                  ),
+                  key: globalKeyCartItems,
+                )),
           )
         ],
       ),

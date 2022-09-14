@@ -29,7 +29,7 @@ class _ItemTileState extends State<ItemTile> {
 
   Future<void> switchIcon() async {
     setState(() => tileIcon = Icons.check);
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 800));
     setState(() => tileIcon = Icons.add_shopping_cart_outlined);
   }
 
@@ -114,7 +114,7 @@ class _ItemTileState extends State<ItemTile> {
             child: Material(
               child: InkWell(
                 onTap: () {
-
+                  switchIcon();
                   widget.cartAnimationMethod(imageGk);
                 },
                 child: Ink(

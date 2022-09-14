@@ -40,6 +40,8 @@ dependencies:
   intl: ^0.17.0
   qr_flutter: ^4.0.0
   add_to_cart_animation: ^0.0.7
+  fluttertoast: ^8.0.9
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -94,3 +96,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon_app/web_hi_res_512.png"
+  remove_alpha_ios: true

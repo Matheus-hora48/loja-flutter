@@ -22,6 +22,7 @@ class _CartTabState extends State<CartTab> {
   void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       app_data.cartItems.remove(cartItem);
+      utilsServices.showToast(message: 'Produto ${cartItem.item.itemName} removido(a) do carrinho ');
     });
   }
 
@@ -86,7 +87,7 @@ class _CartTabState extends State<CartTab> {
                       color: CustomColors.customSwatchColor,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 SizedBox(
@@ -102,6 +103,8 @@ class _CartTabState extends State<CartTab> {
                                 order: app_data.orders.first,
                               );
                             });
+                      } else {
+                        utilsServices.showToast(message: 'Pedido não confirmado', isError: true);
                       }
                     },
                     style: ElevatedButton.styleFrom(
