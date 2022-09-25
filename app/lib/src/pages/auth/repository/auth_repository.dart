@@ -1,4 +1,5 @@
 import 'package:app/src/constants/endpoints.dart';
+import 'package:app/src/models/user_model.dart';
 import 'package:app/src/services/http_maneger.dart';
 
 class AuthRepository {
@@ -14,6 +15,9 @@ class AuthRepository {
       },
     );
 
-    if (result['result'] != null) ;
+    if (result['result'] != null) {
+      final user = UserModel.fromJson(result['result']);
+      print(user);
+    }
   }
 }
