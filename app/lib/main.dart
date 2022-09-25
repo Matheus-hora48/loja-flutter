@@ -1,10 +1,12 @@
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/splash/splash_screen.dart';
 import 'package:app/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
+  Get.put(AuthController());
   runApp(const MyApp());
 }
 

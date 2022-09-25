@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/widgets/app_name_widget.dart';
 import 'package:app/src/pages/widgets/costom_text_field.dart';
 import 'package:app/src/routes/app_routes.dart';
@@ -102,18 +103,37 @@ class SignInScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {}
-                            //Get.offNamed(PagesRoutes.baseRoute);
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      FocusScope.of(context).unfocus();
+
+                                      if (_formKey.currentState!.validate()) {
+                                        String email = emailController.text;
+                                        String password =
+                                            passwordController.text;
+
+                                        authController.signIn(
+                                            email: email, password: password);
+                                      }
+                                    },
+                              child: authController.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Entrar',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white),
+                                    ),
+                            );
                           },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18))),
-                          child: const Text(
-                            'Entrar',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
                         ),
                       ),
                       Align(
