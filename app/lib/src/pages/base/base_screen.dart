@@ -4,8 +4,6 @@ import 'package:app/src/pages/home/home_tab.dart';
 import 'package:app/src/pages/orders/orders_tab.dart';
 import 'package:app/src/pages/profile/profile_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
