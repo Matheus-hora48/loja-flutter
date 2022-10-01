@@ -4,6 +4,7 @@ import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/widgets/app_name_widget.dart';
 import 'package:app/src/pages/widgets/costom_text_field.dart';
 import 'package:app/src/routes/app_routes.dart';
+import 'package:app/src/services/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -75,31 +76,14 @@ class SignInScreen extends StatelessWidget {
                         controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Digite seu email';
-                          }
-                          if (!email.isEmail) return 'Email invalido';
-
-                          return null;
-                        },
+                        validator: emailValidator,
                       ),
                       CustomTextField(
                         controller: passwordController,
                         icon: Icons.lock,
                         label: 'Senha',
                         isSecret: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return 'Digite sua senha';
-                          }
-
-                          if (password.length < 7) {
-                            return 'Digite uma senha com pelo menos 7 caracteres';
-                          }
-
-                          return null;
-                        },
+                        validator: passwordValidator,
                       ),
                       SizedBox(
                         height: 50,
