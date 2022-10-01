@@ -1,7 +1,9 @@
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/widgets/costom_text_field.dart';
 import 'package:app/src/services/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SingUpScreen extends StatelessWidget {
@@ -18,6 +20,7 @@ class SingUpScreen extends StatelessWidget {
   );
 
   final _formKey = GlobalKey<FormState>();
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,48 +34,59 @@ class SingUpScreen extends StatelessWidget {
           width: size.width,
           child: Stack(
             children: [
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Expanded(
-                  child: Center(
-                    child: Text(
-                      'Cadastro',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Cadastro',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 40,
-                  ),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(45))),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 40,
+                    ),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(45))),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const CustomTextField(
+                          CustomTextField(
                             icon: Icons.email,
                             label: 'Email',
+                            onSaved: (value) {
+                              authController.user.email = value;
+                            },
                             validator: emailValidator,
                             textInputType: TextInputType.emailAddress,
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             icon: Icons.lock,
                             label: 'Senha',
                             isSecret: true,
                             validator: passwordValidator,
+                            onSaved: (value) {
+                              authController.user.passoword = value;
+                            },
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             icon: Icons.person,
                             label: 'Name',
                             validator: nameValidator,
+                            onSaved: (value) {
+                              authController.user.name = value;
+                            },
                           ),
                           CustomTextField(
                             icon: Icons.phone,
@@ -80,6 +94,9 @@ class SingUpScreen extends StatelessWidget {
                             inputFormatters: [phoneFormatter],
                             textInputType: TextInputType.phone,
                             validator: phoneValidator,
+                            onSaved: (value) {
+                              authController.user.phone = value;
+                            },
                           ),
                           CustomTextField(
                             icon: Icons.file_copy,
@@ -87,27 +104,47 @@ class SingUpScreen extends StatelessWidget {
                             inputFormatters: [cpfFormatter],
                             textInputType: TextInputType.number,
                             validator: cpfValidator,
+                            onSaved: (value) {
+                              authController.user.cpf = value;
+                            },
                           ),
                           SizedBox(
-                              height: 50,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
+                            height: 50,
+                            child: Obx(
+                              () {
+                                return ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18))),
-                                onPressed: () {},
-                                child: const Text(
-                                  'Cadastrar usuário',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
                                   ),
-                                ),
-                              ))
-                        ]),
-                  ),
-                )
-              ]),
+                                  onPressed: authController.isLoading.value
+                                      ? null
+                                      : () {
+                                          FocusScope.of(context).unfocus();
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            _formKey.currentState!.save();
+                                          }
+                                        },
+                                  child: authController.isLoading.value
+                                      ? const CircularProgressIndicator()
+                                      : const Text(
+                                          'Cadstrar usuário',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white),
+                                        ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
               Positioned(
                 top: 10,
                 left: 10,

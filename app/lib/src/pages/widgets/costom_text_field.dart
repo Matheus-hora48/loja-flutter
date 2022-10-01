@@ -14,6 +14,7 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.validator,
     this.controller,
+    this.onSaved,
     this.textInputType,
   }) : super(key: key);
   final IconData icon;
@@ -23,6 +24,7 @@ class CustomTextField extends StatefulWidget {
   final String? initialValue;
   final bool readOnly;
   final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
   final TextEditingController? controller;
   final TextInputType? textInputType;
 
@@ -51,6 +53,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         inputFormatters: widget.inputFormatters,
         obscureText: isObscure,
         keyboardType: widget.textInputType,
+        onSaved: widget.onSaved,
         decoration: InputDecoration(
             labelText: widget.label,
             isDense: true,
