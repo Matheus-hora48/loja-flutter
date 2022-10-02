@@ -1,6 +1,8 @@
+import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/widgets/costom_text_field.dart';
 import 'package:app/src/services/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ForgotPasswordDialog extends StatelessWidget {
   final emailController = TextEditingController();
@@ -11,6 +13,9 @@ class ForgotPasswordDialog extends StatelessWidget {
   }) : super(key: key) {
     emailController.text = email;
   }
+
+  final _formFieldKey = GlobalKey<FormFieldState>();
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class ForgotPasswordDialog extends StatelessWidget {
         children: [
           // Conteúdo
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
@@ -56,6 +61,7 @@ class ForgotPasswordDialog extends StatelessWidget {
 
                 // Campo de email
                 CustomTextField(
+                  formFieldKey: _formFieldKey,
                   controller: emailController,
                   icon: Icons.email,
                   label: 'Email',
@@ -73,7 +79,12 @@ class ForgotPasswordDialog extends StatelessWidget {
                       color: Colors.green,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formFieldKey.currentState!.validate()) {
+                      authController.resetPassword(emailController.text);
+                      Get.back(result: true);
+                    }
+                  },
                   child: const Text(
                     'Recuperar',
                     style: TextStyle(
