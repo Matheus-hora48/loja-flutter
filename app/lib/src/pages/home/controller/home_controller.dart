@@ -40,7 +40,7 @@ class HomeController extends GetxController {
     super.onInit();
 
     debounce(searchTitle, (_){
-
+      update();
     },
       time: const Duration(microseconds: 600)
     );
