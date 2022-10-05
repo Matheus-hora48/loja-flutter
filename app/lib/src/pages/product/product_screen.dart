@@ -1,10 +1,12 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/item_model.dart';
+import 'package:app/src/pages/base/controller/navigation_controller.dart';
 import 'package:app/src/pages/widgets/quantity_widget.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
   ProductScreen({Key? key, required this.item}) : super(key: key);
@@ -19,6 +21,8 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsServices utilsServices = UtilsServices();
 
   int cartItemQuantity = 1;
+
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +104,14 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 55,
                         child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15))),
-                          onPressed: () {},
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.back();
+                            navigationController.navigatePageView(NavigationTabs.cart);
+                          },
                           label: const Text(
                             'Add ao carrinho',
                             style: TextStyle(
