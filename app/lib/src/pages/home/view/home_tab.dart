@@ -45,6 +45,8 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
+  final controlller = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +102,9 @@ class _HomeTabState extends State<HomeTab> {
                 vertical: 10,
               ),
               child: TextFormField(
+                onChanged: (value) {
+                  controlller.searchTitle.value = value;
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -184,10 +189,9 @@ class _HomeTabState extends State<HomeTab> {
                         ),
                         itemCount: controller.allProducts.length,
                         itemBuilder: (_, index) {
-
-                          if((index +1) == controller.allProducts.length){
-                            if(!controller.isLastPage){
-                              controller.loadMoreProducts
+                          if ((index + 1) == controller.allProducts.length) {
+                            if (!controller.isLastPage) {
+                              controller.loadMoreProducts;
                             }
                           }
 
