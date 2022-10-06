@@ -1,6 +1,6 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/base/controller/navigation_controller.dart';
-import 'package:app/src/pages/cart/cart_tab.dart';
+import 'package:app/src/pages/cart/view/cart_tab.dart';
 import 'package:app/src/pages/home/view/home_tab.dart';
 import 'package:app/src/pages/orders/orders_tab.dart';
 import 'package:app/src/pages/profile/profile_tab.dart';

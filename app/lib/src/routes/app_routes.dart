@@ -2,6 +2,7 @@ import 'package:app/src/pages/auth/view/sign_in_screen.dart';
 import 'package:app/src/pages/auth/view/sing_up_screen.dart';
 import 'package:app/src/pages/base/base_screen.dart';
 import 'package:app/src/pages/base/binding/navigation_binding.dart';
+import 'package:app/src/pages/cart/binding/cart_binding.dart';
 import 'package:app/src/pages/home/binding/home_binding.dart';
 import 'package:app/src/pages/splash/splash_screen.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,7 @@ abstract class AppPages {
       bindings: [
         NavigationBinding(),
         HomeBinding(),
+        CartBinding(),
       ],
       page: () => const BaseScreen(),
     ),

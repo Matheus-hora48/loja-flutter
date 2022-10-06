@@ -1,7 +1,7 @@
 import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/cart_item_model.dart';
-import 'package:app/src/pages/cart/components/cart_tile.dart';
+import 'package:app/src/pages/cart/view/components/cart_tile.dart';
 import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,19 +19,19 @@ class CartTab extends StatefulWidget {
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
 
-  void removeItemFromCart(CartItemModel cartItem) {
-    setState(() {
-      app_data.cartItems.remove(cartItem);
-      utilsServices.showToast(message: 'Produto ${cartItem.item.itemName} removido(a) do carrinho ');
-    });
-  }
+  // void removeItemFromCart(CartItemModel cartItem) {
+  //   setState(() {
+  //     app_data.cartItems.remove(cartItem);
+  //     utilsServices.showToast(message: 'Produto ${cartItem.item.itemName} removido(a) do carrinho ');
+  //   });
+  // }
 
   double cartTotalPrice() {
     double total = 0;
 
-    for (var item in app_data.cartItems) {
-      total += item.totalPrice();
-    }
+    // for (var item in app_data.cartItems) {
+    //   total += item.totalPrice();
+    // }
     return total;
   }
 
@@ -51,12 +51,13 @@ class _CartTabState extends State<CartTab> {
         children: [
           Expanded(
               child: ListView.builder(
-            itemCount: app_data.cartItems.length,
+            itemCount: 0,
             itemBuilder: (_, index) {
-              return CartTile(
-                cartItem: app_data.cartItems[index],
-                remove: removeItemFromCart,
-              );
+              return Container();
+              // return CartTile(
+              //   cartItem: app_data.cartItems[index],
+              //   remove: removeItemFromCart,
+              // );
             },
           )),
           Container(
