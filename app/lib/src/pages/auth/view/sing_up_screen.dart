@@ -103,7 +103,7 @@ class SingUpScreen extends StatelessWidget {
                             label: 'CPF',
                             inputFormatters: [cpfFormatter],
                             textInputType: TextInputType.number,
-                            validator: cpfValidator,
+                            validator: cpfvalidator,
                             onSaved: (value) {
                               authController.user.cpf = value;
                             },

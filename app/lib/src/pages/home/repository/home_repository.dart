@@ -5,8 +5,9 @@ import 'package:app/src/pages/home/result/home_result.dart';
 import 'package:app/src/services/http_maneger.dart';
 import 'package:flutter/cupertino.dart';
 
-class HomeRepository {
+class HomeRespository {
   final HttpManager _httpManager = HttpManager();
+
   Future<HomeResult<CategoryModel>> getAllCategories() async {
     final result = await _httpManager.restRequest(
       url: Endpoints.getAllCategories,
@@ -18,6 +19,7 @@ class HomeRepository {
           (List<Map<String, dynamic>>.from(result['result']))
               .map(CategoryModel.fromJson)
               .toList();
+
       return HomeResult<CategoryModel>.success(data);
     } else {
       return HomeResult.error(
@@ -28,15 +30,20 @@ class HomeRepository {
   Future<HomeResult<ItemModel>> getAllProducts(
       Map<String, dynamic> body) async {
     final result = await _httpManager.restRequest(
-        url: Endpoints.getAllProducts, method: HttpMethods.post);
+      url: Endpoints.getAllProducts,
+      method: HttpMethods.post,
+      body: body,
+    );
 
     if (result['result'] != null) {
       List<ItemModel> data = List<Map<String, dynamic>>.from(result['result'])
           .map(ItemModel.fromJson)
           .toList();
+
       return HomeResult<ItemModel>.success(data);
     } else {
-      return HomeResult.error('Ocorreu um erro inesperadp ao recuperar os itens');
+      return HomeResult.error(
+          'Ocorreu um erro inesperado ao recuperar os itens');
     }
   }
 }

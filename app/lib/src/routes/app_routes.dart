@@ -27,7 +27,6 @@ abstract class AppPages {
         HomeBinding(),
       ],
       page: () => const BaseScreen(),
-      binding: HomeBinding(),
     ),
   ];
 }

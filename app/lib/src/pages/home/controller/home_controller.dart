@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 const int itemsPerPage = 6;
 
 class HomeController extends GetxController {
-  final homeRepository = HomeRepository();
+  final homeRespository = HomeRespository();
   final utilsServices = UtilsServices();
 
   bool isCategoryLoading = false;
@@ -21,7 +21,6 @@ class HomeController extends GetxController {
 
   bool get isLastPage {
     if (currentCategory!.items.length < itemsPerPage) return true;
-
     return currentCategory!.pagination * itemsPerPage > allProducts.length;
   }
 
@@ -31,7 +30,6 @@ class HomeController extends GetxController {
     } else {
       isProductLoading = value;
     }
-
     update();
   }
 
@@ -39,9 +37,11 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
 
-    debounce(searchTitle, (_) {
-      filterByTitle();
-    }, time: const Duration(microseconds: 600));
+    debounce(
+      searchTitle,
+      (_) => filterByTitle(),
+      time: const Duration(milliseconds: 600),
+    );
 
     getAllCategories();
   }
@@ -57,8 +57,10 @@ class HomeController extends GetxController {
 
   Future<void> getAllCategories() async {
     setLoading(true);
+
     HomeResult<CategoryModel> homeResult =
-        await homeRepository.getAllCategories();
+        await homeRespository.getAllCategories();
+
     setLoading(false);
 
     homeResult.when(
@@ -66,6 +68,7 @@ class HomeController extends GetxController {
         allCategories.assignAll(data);
 
         if (allCategories.isEmpty) return;
+
         selectCategory(allCategories.first);
       },
       error: (message) {
@@ -78,6 +81,7 @@ class HomeController extends GetxController {
   }
 
   void filterByTitle() {
+    // Apagar todos os produtos das categorias
     for (var category in allCategories) {
       category.items.clear();
       category.pagination = 0;
@@ -89,6 +93,7 @@ class HomeController extends GetxController {
       CategoryModel? c = allCategories.firstWhereOrNull((cat) => cat.id == '');
 
       if (c == null) {
+        // Criar uma nova categoria com todos
         final allProductsCategory = CategoryModel(
           title: 'Todos',
           id: '',
@@ -122,20 +127,20 @@ class HomeController extends GetxController {
     }
 
     Map<String, dynamic> body = {
-      "page": currentCategory!.pagination,
-      "categoryId": currentCategory!.id,
-      "itemsPerPage": itemsPerPage
+      'page': currentCategory!.pagination,
+      'categoryId': currentCategory!.id,
+      'itemsPerPage': itemsPerPage,
     };
 
-    if(searchTitle.value.isNotEmpty){
+    if (searchTitle.value.isNotEmpty) {
       body['title'] = searchTitle.value;
 
-      if(currentCategory!.id == ''){
+      if (currentCategory!.id == '') {
         body.remove('categoryId');
       }
     }
 
-    HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
+    HomeResult<ItemModel> result = await homeRespository.getAllProducts(body);
 
     setLoading(false, isProduct: true);
 

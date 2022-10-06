@@ -133,6 +133,7 @@ class SignInScreen extends StatelessWidget {
                                       'Entrar',
                                       style: TextStyle(
                                         fontSize: 18,
+                                        color: Colors.white,
                                       ),
                                     ),
                             );
