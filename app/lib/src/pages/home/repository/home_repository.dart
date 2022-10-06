@@ -3,7 +3,6 @@ import 'package:app/src/models/category_model.dart';
 import 'package:app/src/models/item_model.dart';
 import 'package:app/src/pages/home/result/home_result.dart';
 import 'package:app/src/services/http_maneger.dart';
-import 'package:flutter/cupertino.dart';
 
 class HomeRespository {
   final HttpManager _httpManager = HttpManager();
