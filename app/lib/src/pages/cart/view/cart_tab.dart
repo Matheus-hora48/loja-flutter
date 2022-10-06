@@ -1,6 +1,7 @@
 import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/cart_item_model.dart';
+import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/cart/view/components/cart_tile.dart';
 import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -18,13 +20,6 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
-
-  // void removeItemFromCart(CartItemModel cartItem) {
-  //   setState(() {
-  //     app_data.cartItems.remove(cartItem);
-  //     utilsServices.showToast(message: 'Produto ${cartItem.item.itemName} removido(a) do carrinho ');
-  //   });
-  // }
 
   double cartTotalPrice() {
     double total = 0;
@@ -50,16 +45,20 @@ class _CartTabState extends State<CartTab> {
       body: Column(
         children: [
           Expanded(
-              child: ListView.builder(
-            itemCount: 0,
-            itemBuilder: (_, index) {
-              return Container();
-              // return CartTile(
-              //   cartItem: app_data.cartItems[index],
-              //   remove: removeItemFromCart,
-              // );
-            },
-          )),
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return ListView.builder(
+                  itemCount: controller.cartItems.length,
+                  itemBuilder: (_, index) {
+                    return CartTile(
+                      cartItem: controller.cartItems[index],
+
+                    );
+                  },
+                );
+              },
+            ),
+          ),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -81,13 +80,15 @@ class _CartTabState extends State<CartTab> {
                   'Total geral',
                   style: TextStyle(fontSize: 14),
                 ),
-                Text(
-                  utilsServices.priceToCurrency(cartTotalPrice()),
+                GetBuilder<CartController>(builder: (controller){
+                  return Text(
+                  utilsServices.priceToCurrency(controller.cartTotalPrice()),
                   style: TextStyle(
                       fontSize: 23,
                       color: CustomColors.customSwatchColor,
                       fontWeight: FontWeight.bold),
-                ),
+                );
+                }),
                 const SizedBox(
                   height: 25,
                 ),
@@ -105,7 +106,8 @@ class _CartTabState extends State<CartTab> {
                               );
                             });
                       } else {
-                        utilsServices.showToast(message: 'Pedido não confirmado', isError: true);
+                        utilsServices.showToast(
+                            message: 'Pedido não confirmado', isError: true);
                       }
                     },
                     style: ElevatedButton.styleFrom(
