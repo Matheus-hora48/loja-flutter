@@ -1,10 +1,12 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/cart_item_model.dart';
+import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/widgets/quantity_widget.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class CartTile extends StatefulWidget {
   const CartTile({
@@ -20,6 +22,7 @@ class CartTile extends StatefulWidget {
 
 class _CartTileState extends State<CartTile> {
   final UtilsServices utilsServices = UtilsServices();
+  final controller = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,12 @@ class _CartTileState extends State<CartTile> {
         trailing: QuantityWidget(
           value: widget.cartItem.quantity,
           suffixText: widget.cartItem.item.unit,
-          result: ((quantity) {}),
+          result: ((quantity) {
+            controller.changeItemQuantity(
+              item: widget.cartItem,
+              quantity: quantity,
+            );
+          }),
           isRemovable: true,
         ),
       ),

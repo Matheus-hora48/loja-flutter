@@ -1,14 +1,10 @@
 import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
-import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/cart/view/components/cart_tile.dart';
 import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class CartTab extends StatefulWidget {
@@ -47,12 +43,26 @@ class _CartTabState extends State<CartTab> {
           Expanded(
             child: GetBuilder<CartController>(
               builder: (controller) {
+                if (controller.cartItems.isEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.remove_shopping_cart,
+                        size: 40,
+                        color: CustomColors.customSwatchColor,
+                      ),
+                      const SizedBox(height: 20),
+                      const Text('Sem itens no carrinho')
+                    ],
+                  );
+                }
+
                 return ListView.builder(
                   itemCount: controller.cartItems.length,
                   itemBuilder: (_, index) {
                     return CartTile(
                       cartItem: controller.cartItems[index],
-
                     );
                   },
                 );
@@ -80,14 +90,14 @@ class _CartTabState extends State<CartTab> {
                   'Total geral',
                   style: TextStyle(fontSize: 14),
                 ),
-                GetBuilder<CartController>(builder: (controller){
+                GetBuilder<CartController>(builder: (controller) {
                   return Text(
-                  utilsServices.priceToCurrency(controller.cartTotalPrice()),
-                  style: TextStyle(
-                      fontSize: 23,
-                      color: CustomColors.customSwatchColor,
-                      fontWeight: FontWeight.bold),
-                );
+                    utilsServices.priceToCurrency(controller.cartTotalPrice()),
+                    style: TextStyle(
+                        fontSize: 23,
+                        color: CustomColors.customSwatchColor,
+                        fontWeight: FontWeight.bold),
+                  );
                 }),
                 const SizedBox(
                   height: 25,
