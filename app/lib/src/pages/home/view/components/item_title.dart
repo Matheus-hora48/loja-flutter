@@ -1,10 +1,10 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/item_model.dart';
-import 'package:app/src/pages/product/product_screen.dart';
+import 'package:app/src/pages/cart/controller/cart_controller.dart';
+import 'package:app/src/routes/app_routes.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 
 class ItemTile extends StatefulWidget {
   final ItemModel item;
@@ -24,12 +24,13 @@ class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
 
   final UtilsServices utilsServices = UtilsServices();
+  final cartController = Get.find<CartController>();
 
   IconData tileIcon = Icons.add_shopping_cart_outlined;
 
   Future<void> switchIcon() async {
     setState(() => tileIcon = Icons.check);
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 1500));
     setState(() => tileIcon = Icons.add_shopping_cart_outlined);
   }
 
@@ -40,9 +41,7 @@ class _ItemTileState extends State<ItemTile> {
         // Conteúdo
         GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-              return ProductScreen(item: widget.item);
-            }));
+            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
           },
           child: Card(
             elevation: 1,
@@ -115,6 +114,9 @@ class _ItemTileState extends State<ItemTile> {
               child: InkWell(
                 onTap: () {
                   switchIcon();
+
+                  cartController.addItemToCart(item: widget.item);
+
                   widget.cartAnimationMethod(imageGk);
                 },
                 child: Ink(

@@ -96,7 +96,7 @@ UserModel user = UserModel(
   email: 'hora@email.com',
   phone: '(77) 9 98245456',
   cpf: '487.148.791-94',
-  passoword: '',
+  password: '',
 );
 
 List<OrderModel> orders = [

@@ -1,3 +1,3 @@
-abstract class StorageKey {
+abstract class StorageKeys {
   static const String token = 'token';
 }

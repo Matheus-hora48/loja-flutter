@@ -38,26 +38,24 @@ class CartRepository {
     required String userId,
     required String token,
     required String productId,
-    required String quantity,
+    required int quantity,
   }) async {
-    final result = _httpManager.restRequest(
-      url: Endpoints.addItemToCart,
-      method: HttpMethods.post,
-      body: {
-        "user": userId,
-        "quantity": quantity,
-        "productId": productId,
-      },
-      headers: {
-        'token' : token,
-      }
-    );
+    final result = await _httpManager.restRequest(
+        url: Endpoints.addItemToCart,
+        method: HttpMethods.post,
+        body: {
+          'user': userId,
+          'quantity': quantity,
+          'productId': productId,
+        },
+        headers: {
+          'X-Parse-Session-Token': token,
+        });
 
-    if(result['result'] != null){
+    if (result['result'] != null) {
       return CartResult<String>.success(result['result']['id']);
     } else {
-      return CartResult.error('Não foi possivel adicionar item no carirnho');
+      return CartResult.error('Não foi possível adicionar o item no carrinho');
     }
-    
   }
 }

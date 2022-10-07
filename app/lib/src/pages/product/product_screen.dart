@@ -1,6 +1,7 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/item_model.dart';
 import 'package:app/src/pages/base/controller/navigation_controller.dart';
+import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/widgets/quantity_widget.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
-  ProductScreen({Key? key, required this.item}) : super(key: key);
+  ProductScreen({
+    Key? key,
+  }) : super(key: key);
 
-  final ItemModel item;
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -22,6 +25,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   int cartItemQuantity = 1;
 
+  final cartController = Get.find<CartController>();
   final navigationController = Get.find<NavigationController>();
 
   @override
@@ -30,6 +34,7 @@ class _ProductScreenState extends State<ProductScreen> {
       backgroundColor: Colors.white.withAlpha(230),
       body: Stack(
         children: [
+          // Conteúdo
           Column(
             children: [
               Expanded(
@@ -40,21 +45,23 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(50),
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(50),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade600,
+                        offset: const Offset(0, 2),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade600,
-                          offset: Offset(0, 2),
-                        )
-                      ]),
+                    ],
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      // Nome - Quantidade
                       Row(
                         children: [
                           Expanded(
@@ -69,24 +76,28 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           QuantityWidget(
-                            value: cartItemQuantity,
                             suffixText: widget.item.unit,
-                            result: (int quantity) {
+                            value: cartItemQuantity,
+                            result: (quantity) {
                               setState(() {
                                 cartItemQuantity = quantity;
                               });
                             },
-                          )
+                          ),
                         ],
                       ),
+
+                      // Preço
                       Text(
                         utilsServices.priceToCurrency(widget.item.price),
                         style: TextStyle(
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                           color: CustomColors.customSwatchColor,
-                          fontSize: 20,
                         ),
                       ),
+
+                      // Descrição
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -100,6 +111,8 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                       ),
+
+                      // Botão
                       SizedBox(
                         height: 55,
                         child: ElevatedButton.icon(
@@ -109,13 +122,21 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           onPressed: () {
+                            // Fechar
                             Get.back();
-                            navigationController.navigatePageView(NavigationTabs.cart);
+
+                            cartController.addItemToCart(
+                              item: widget.item,
+                              quantity: cartItemQuantity,
+                            );
+
+                            // Carrinho
+                            navigationController
+                                .navigatePageView(NavigationTabs.cart);
                           },
                           label: const Text(
-                            'Add ao carrinho',
+                            'Add no carrinho',
                             style: TextStyle(
-                              color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -125,24 +146,27 @@ class _ProductScreenState extends State<ProductScreen> {
                             color: Colors.white,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
+
+          // Botão voltar
           Positioned(
             left: 10,
             top: 10,
             child: SafeArea(
-                child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: Icon(Icons.arrow_back_ios),
-            )),
-          )
+              child: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

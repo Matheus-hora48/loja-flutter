@@ -133,7 +133,6 @@ class SignInScreen extends StatelessWidget {
                                       'Entrar',
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: Colors.white,
                                       ),
                                     ),
                             );
@@ -210,7 +209,7 @@ class SignInScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            Get.toNamed(PagesRoutes.singUpRoute);
+                            Get.toNamed(PagesRoutes.signUpRoute);
                           },
                           child: const Text(
                             'Criar conta',

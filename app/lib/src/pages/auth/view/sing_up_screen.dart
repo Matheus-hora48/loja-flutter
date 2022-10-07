@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class SingUpScreen extends StatelessWidget {
-  SingUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({Key? key}) : super(key: key);
 
   final cpfFormatter = MaskTextInputFormatter(
     mask: '###.###.###-##',
@@ -15,7 +15,7 @@ class SingUpScreen extends StatelessWidget {
   );
 
   final phoneFormatter = MaskTextInputFormatter(
-    mask: '(##) # #### ####',
+    mask: '## # ####-####',
     filter: {'#': RegExp(r'[0-9]')},
   );
 
@@ -35,28 +35,31 @@ class SingUpScreen extends StatelessWidget {
           child: Stack(
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Expanded(
                     child: Center(
                       child: Text(
                         'Cadastro',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 35,
+                        ),
                       ),
                     ),
                   ),
+
+                  // Formulario
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 40,
                     ),
                     decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(45))),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(45),
+                      ),
+                    ),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -74,75 +77,75 @@ class SingUpScreen extends StatelessWidget {
                           CustomTextField(
                             icon: Icons.lock,
                             label: 'Senha',
-                            isSecret: true,
-                            validator: passwordValidator,
                             onSaved: (value) {
-                              authController.user.passoword = value;
+                              authController.user.password = value;
                             },
+                            validator: passwordValidator,
+                            isSecret: true,
                           ),
                           CustomTextField(
                             icon: Icons.person,
-                            label: 'Name',
-                            validator: nameValidator,
+                            label: 'Nome',
                             onSaved: (value) {
                               authController.user.name = value;
                             },
+                            validator: nameValidator,
                           ),
                           CustomTextField(
                             icon: Icons.phone,
                             label: 'Celular',
-                            inputFormatters: [phoneFormatter],
-                            textInputType: TextInputType.phone,
                             validator: phoneValidator,
                             onSaved: (value) {
                               authController.user.phone = value;
                             },
+                            textInputType: TextInputType.phone,
+                            inputFormatters: [phoneFormatter],
                           ),
                           CustomTextField(
                             icon: Icons.file_copy,
                             label: 'CPF',
-                            inputFormatters: [cpfFormatter],
-                            textInputType: TextInputType.number,
                             validator: cpfvalidator,
                             onSaved: (value) {
                               authController.user.cpf = value;
                             },
+                            textInputType: TextInputType.number,
+                            inputFormatters: [cpfFormatter],
                           ),
                           SizedBox(
                             height: 50,
-                            child: Obx(
-                              () {
-                                return ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
+                            child: Obx(() {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
-                                  onPressed: authController.isLoading.value
-                                      ? null
-                                      : () {
-                                          FocusScope.of(context).unfocus();
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            _formKey.currentState!.save();
-                                          }
-                                        },
-                                  child: authController.isLoading.value
-                                      ? const CircularProgressIndicator()
-                                      : const Text(
-                                          'Cadstrar usuário',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white),
+                                ),
+                                onPressed: authController.isLoading.value
+                                    ? null
+                                    : () {
+                                        FocusScope.of(context).unfocus();
+
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
+
+                                          authController.signUp();
+                                        }
+                                      },
+                                child: authController.isLoading.value
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
+                                        'Cadastrar usuário',
+                                        style: TextStyle(
+                                          fontSize: 18,
                                         ),
-                                );
-                              },
-                            ),
+                                      ),
+                              );
+                            }),
                           ),
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Positioned(
@@ -150,15 +153,16 @@ class SingUpScreen extends StatelessWidget {
                 left: 10,
                 child: SafeArea(
                   child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      )),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
