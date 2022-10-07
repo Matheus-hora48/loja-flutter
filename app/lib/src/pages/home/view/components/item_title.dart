@@ -41,7 +41,10 @@ class _ItemTileState extends State<ItemTile> {
         // Conteúdo
         GestureDetector(
           onTap: () {
-            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
+            Get.toNamed(
+              PagesRoutes.productRoute,
+              arguments: widget.item,
+            );
           },
           child: Card(
             elevation: 1,
