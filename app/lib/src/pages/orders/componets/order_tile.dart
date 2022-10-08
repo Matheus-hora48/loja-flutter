@@ -30,7 +30,7 @@ class OrderTile extends StatelessWidget {
             children: [
               Text('Pedido: ${order.id}'),
               Text(
-                utilsServices.formatDateTime(order.createdDateTime),
+                utilsServices.formatDateTime(order.createdDateTime!),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 12,

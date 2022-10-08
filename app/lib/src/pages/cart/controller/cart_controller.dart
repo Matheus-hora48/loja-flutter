@@ -1,9 +1,12 @@
 import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/models/item_model.dart';
+import 'package:app/src/models/order_model.dart';
 import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/cart/cart_result/cart_result.dart';
 import 'package:app/src/pages/cart/repository/cart_repository.dart';
+import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -12,6 +15,8 @@ class CartController extends GetxController {
   final utilsServices = UtilsServices();
 
   List<CartItemModel> cartItems = [];
+
+  bool isCheckoutLoading = false;
 
   @override
   void onInit() {
@@ -28,6 +33,44 @@ class CartController extends GetxController {
     }
 
     return total;
+  }
+
+  void setCheckouLoading(bool value) {
+    isCheckoutLoading = value;
+    update();
+  }
+
+  Future checkoutCart() async {
+    setCheckouLoading(true);
+
+    CartResult<OrderModel> result = await cartRepository.checkoutCart(
+      token: authController.user.token!,
+      total: cartTotalPrice(),
+    );
+
+    setCheckouLoading(false);
+
+    result.when(
+      success: (order) {
+        cartItems.clear();
+        update();
+
+        showDialog(
+          context: Get.context!,
+          builder: (_) {
+            return PaymentDialog(
+              order: order,
+            );
+          },
+        );
+      },
+      error: (message) {
+        utilsServices.showToast(
+          message: message,
+          isError: true,
+        );
+      },
+    );
   }
 
   Future<bool> changeItemQuantity({

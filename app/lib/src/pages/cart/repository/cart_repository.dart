@@ -1,5 +1,6 @@
 import 'package:app/src/constants/endpoints.dart';
 import 'package:app/src/models/cart_item_model.dart';
+import 'package:app/src/models/order_model.dart';
 import 'package:app/src/pages/cart/cart_result/cart_result.dart';
 import 'package:app/src/services/http_maneger.dart';
 
@@ -31,6 +32,29 @@ class CartRepository {
     } else {
       return CartResult<List<CartItemModel>>.error(
           'Erro ao recurar os itens do carrinho');
+    }
+  }
+
+  Future<CartResult<OrderModel>> checkoutCart({
+    required String token,
+    required double total,
+  }) async {
+    final result = await _httpManager.restRequest(
+      url: Endpoints.checkout,
+      method: HttpMethods.post,
+      body: {
+        'total': total,
+      },
+      headers: {
+        'X-Parse-Session-Token': token,
+      },
+    );
+
+    if (result['result'] != null) {
+      final order = OrderModel.fromJson(result['result']);
+      return CartResult<OrderModel>.success(order);
+    } else {
+      return CartResult.error('Não foi possivel realizar o pedido');
     }
   }
 
