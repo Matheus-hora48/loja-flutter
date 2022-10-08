@@ -1,6 +1,6 @@
 import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/models/order_model.dart';
-import 'package:app/src/pages/orders/componets/order_status.dart';
+import 'package:app/src/pages/orders/view/componets/order_status.dart';
 import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/cupertino.dart';
