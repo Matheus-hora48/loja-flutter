@@ -1,5 +1,5 @@
 import 'package:app/src/pages/orders/controllers/all_orders_controller.dart';
-import 'package:app/src/pages/orders/view/componets/order_tile.dart';
+import 'package:app/src/pages/orders/view/components/order_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
