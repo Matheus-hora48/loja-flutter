@@ -1,6 +1,6 @@
 import 'package:app/src/constants/endpoints.dart';
 import 'package:app/src/models/user_model.dart';
-import 'package:app/src/pages/auth/repository/auth_errors.dart' as authErrors;
+import 'package:app/src/pages/auth/repository/auth_errors.dart' as auth_errors;
 import 'package:app/src/pages/auth/result/auth_result.dart';
 import 'package:app/src/services/http_maneger.dart';
 
@@ -12,7 +12,7 @@ class AuthRepository {
       final user = UserModel.fromJson(result['result']);
       return AuthResult.success(user);
     } else {
-      return AuthResult.error(authErrors.authErrorsString(result['error']));
+      return AuthResult.error(auth_errors.authErrorsString(result['error']));
     }
   }
 

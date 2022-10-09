@@ -1,6 +1,5 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
-import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/base/controller/navigation_controller.dart';
 import 'package:app/src/pages/cart/controller/cart_controller.dart';

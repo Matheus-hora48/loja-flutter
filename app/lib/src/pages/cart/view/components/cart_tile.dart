@@ -4,8 +4,6 @@ import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/widgets/quantity_widget.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class CartTile extends StatefulWidget {
@@ -30,7 +28,7 @@ class _CartTileState extends State<CartTile> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: ListTile(
         leading: Image.network(
           widget.cartItem.item.imgUrl,

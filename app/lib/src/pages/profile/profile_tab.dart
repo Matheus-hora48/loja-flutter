@@ -3,9 +3,6 @@ import 'package:app/src/pages/auth/controllers/auth_controller.dart';
 import 'package:app/src/pages/widgets/costom_text_field.dart';
 import 'package:app/src/services/validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:app/src/config/app_data.dart' as app_data;
 import 'package:get/get.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -102,7 +99,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<bool?> updatePassword() {
     final newPasswordController = TextEditingController();
     final currentPasswordController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return showDialog(
       context: context,
@@ -116,7 +113,7 @@ class _ProfileTabState extends State<ProfileTab> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
@@ -174,7 +171,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             onPressed: authController.isLoading.value
                                 ? null
                                 : () {
-                                    if (_formKey.currentState!.validate()) {
+                                    if (formKey.currentState!.validate()) {
                                       authController.changePassword(
                                         currentPassword:
                                             currentPasswordController.text,

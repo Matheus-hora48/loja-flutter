@@ -4,10 +4,7 @@ import 'package:app/src/pages/orders/controllers/order_controller.dart';
 import 'package:app/src/pages/orders/view/components/order_status.dart';
 import 'package:app/src/pages/widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class OrderTile extends StatelessWidget {
@@ -152,6 +149,7 @@ class OrderTile extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class orderItemWidget extends StatelessWidget {
   const orderItemWidget({
     Key? key,

@@ -1,8 +1,5 @@
 import 'package:app/src/config/custom_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class OrderStatusWidget extends StatelessWidget {
   OrderStatusWidget({
@@ -79,7 +76,7 @@ class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       height: 10,
       width: 2,
       color: Colors.grey.shade300,
@@ -87,6 +84,7 @@ class CustomDivider extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class _statusDot extends StatelessWidget {
   const _statusDot(
       {Key? key,

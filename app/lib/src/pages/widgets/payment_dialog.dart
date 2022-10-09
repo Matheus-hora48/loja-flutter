@@ -3,7 +3,6 @@ import 'package:app/src/models/order_model.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class PaymentDialog extends StatelessWidget {
   PaymentDialog({Key? key, required this.order}) : super(key: key);
@@ -88,7 +87,7 @@ class PaymentDialog extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                 ))
           ],
         ));

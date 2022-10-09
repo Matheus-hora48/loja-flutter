@@ -1,8 +1,6 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/pages/widgets/app_name_widget.dart';
-import 'package:app/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);

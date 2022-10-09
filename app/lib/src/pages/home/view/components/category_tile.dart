@@ -1,8 +1,5 @@
 import 'package:app/src/config/custom_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class CategoryTile extends StatelessWidget {
   const CategoryTile({Key? key, required this.category, required this.isSelected, required this.onPressed}) : super(key: key);
@@ -18,7 +15,7 @@ class CategoryTile extends StatelessWidget {
       onTap: onPressed,
       child: Align(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: isSelected ? CustomColors.customSwatchColor : Colors.transparent,
             borderRadius: BorderRadius.circular(10)

@@ -1,4 +1,3 @@
-import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/models/item_model.dart';
 import 'package:app/src/models/order_model.dart';
 import 'package:app/src/models/user_model.dart';

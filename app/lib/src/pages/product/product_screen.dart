@@ -5,8 +5,6 @@ import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/widgets/quantity_widget.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
