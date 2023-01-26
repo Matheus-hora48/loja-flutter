@@ -19,8 +19,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Zap Frutas',
       theme: ThemeData(
-          primarySwatch: CustomColors.customSwatchColor,
-          scaffoldBackgroundColor: Colors.white.withAlpha(200)),
+        primarySwatch: CustomColors.customSwatchColor,
+        scaffoldBackgroundColor: Colors.white.withAlpha(200),
+      ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       initialRoute: PagesRoutes.splashRoute,
