@@ -74,10 +74,6 @@ class ForgotPasswordDialog extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.green,
-                    ),
                   ),
                   onPressed: () {
                     if (_formFieldKey.currentState!.validate()) {
@@ -89,6 +85,7 @@ class ForgotPasswordDialog extends StatelessWidget {
                     'Recuperar',
                     style: TextStyle(
                       fontSize: 13,
+                      color: Colors.white,
                     ),
                   ),
                 ),

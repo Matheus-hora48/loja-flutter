@@ -137,6 +137,7 @@ class SignUpScreen extends StatelessWidget {
                                         'Cadastrar usuário',
                                         style: TextStyle(
                                           fontSize: 18,
+                                          color: Colors.white,
                                         ),
                                       ),
                               );

@@ -133,6 +133,7 @@ class SignInScreen extends StatelessWidget {
                                       'Entrar',
                                       style: TextStyle(
                                         fontSize: 18,
+                                        color: Colors.white,
                                       ),
                                     ),
                             );
@@ -203,9 +204,9 @@ class SignInScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18),
                             ),
-                            side: const BorderSide(
+                            side: BorderSide(
                               width: 2,
-                              color: Colors.green,
+                              color: CustomColors.customSwatchColor,
                             ),
                           ),
                           onPressed: () {
