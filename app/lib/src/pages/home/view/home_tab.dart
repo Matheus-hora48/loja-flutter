@@ -8,7 +8,6 @@ import 'package:app/src/pages/home/view/components/category_tile.dart';
 import 'package:app/src/pages/home/view/components/item_title.dart';
 import 'package:app/src/pages/widgets/app_name_widget.dart';
 import 'package:app/src/pages/widgets/custom_shimmer.dart';
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,14 +70,6 @@ class _HomeTabState extends State<HomeTab> {
                     navigationController.navigatePageView(NavigationTabs.cart);
                   },
                   child: Badge(
-                    badgeColor: CustomColors.customContrastColor,
-                    badgeContent: Text(
-                      controller.cartItems.length.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                    ),
                     child: AddToCartIcon(
                       key: globalKeyCartItems,
                       icon: Icon(
