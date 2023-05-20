@@ -112,7 +112,7 @@ class _CartTabState extends State<CartTab> {
                             : () async {
                                 bool? result = await showOrderConfirmation();
                                 if (result ?? false) {
-                                  cartController.checkoutCart;
+                                  cartController.checkoutCart();
                                 } else {
                                   utilsServices.showToast(
                                       message: 'Pedido não confirmado');

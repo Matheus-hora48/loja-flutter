@@ -41,6 +41,7 @@ class CartController extends GetxController {
   }
 
   Future checkoutCart() async {
+    print('object');
     setCheckouLoading(true);
 
     CartResult<OrderModel> result = await cartRepository.checkoutCart(
@@ -110,7 +111,7 @@ class CartController extends GetxController {
     );
 
     result.when(success: (data) {
-      cartItems =  data;
+      cartItems = data;
       update();
     }, error: (message) {
       utilsServices.showToast(message: message);

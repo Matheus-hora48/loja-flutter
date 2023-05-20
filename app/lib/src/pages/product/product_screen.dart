@@ -133,10 +133,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                 .navigatePageView(NavigationTabs.cart);
                           },
                           label: const Text(
-                            'Add no carrinho',
+                            'Adicionar no carrinho',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                           icon: const Icon(
